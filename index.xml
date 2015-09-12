@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Just Code</title>
+    <link>https://aragaer.github.io/just-code/</link>
+    <description>Recent content on Just Code</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 13 Sep 2015 00:20:32 +0300</lastBuildDate>
+    <atom:link href="https://aragaer.github.io/just-code/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Refactoring in a C preprocessor</title>
+      <link>https://aragaer.github.io/just-code/post/refactoring/</link>
+      <pubDate>Sun, 13 Sep 2015 00:20:32 +0300</pubDate>
+      
+      <guid>https://aragaer.github.io/just-code/post/refactoring/</guid>
+      <description>
+
+&lt;p&gt;Assume we have a set of headers. These are used in a large project written in C and maybe some C++. Now assume that the project can be built with a lot of configurations. Each configuration is defined by some flag and there&amp;rsquo;s a number of parameters which have different values in different configurations. There is also some common code for all configurations:&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;config1&lt;/em&gt;: FLAG=1 include header1
+&lt;em&gt;config2&lt;/em&gt;: FLAG=2 include header2&lt;/p&gt;
+
+&lt;h4 id=&#34;header1-h:2b5bae1d2284b007a3110dc88dbb0b72&#34;&gt;header1.h:&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;#include &amp;quot;common.h&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;header2-h:2b5bae1d2284b007a3110dc88dbb0b72&#34;&gt;header2.h:&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;#include &amp;quot;common.h&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;common-h:2b5bae1d2284b007a3110dc88dbb0b72&#34;&gt;common.h:&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;#if FLAG == 1
+#define VALUE1 1
+#elif FLAG == 2
+#define VALUE1 2
+#else
+#error Unknown configuration
+#endif
+
+&amp;lt;repeat several times for other VALUEs&amp;gt;
+
+&amp;lt;some common code that uses all VALUEs&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;That&amp;rsquo;s classic! Replace conditional with polymorphism! But what is polymorphic here?&lt;/p&gt;
+
+&lt;p&gt;I don&amp;rsquo;t actually know. But I&amp;rsquo;d rewrite it like this:&lt;/p&gt;
+
+&lt;h4 id=&#34;header1-h-1:2b5bae1d2284b007a3110dc88dbb0b72&#34;&gt;header1.h:&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;#define VALUE1 1
+#define VALUE2 2
+#include &amp;quot;common.h&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;header2-h-1:2b5bae1d2284b007a3110dc88dbb0b72&#34;&gt;header2.h:&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;#define VALUE1 2
+#define VALUE2 42
+#include &amp;quot;common.h&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;common-h-1:2b5bae1d2284b007a3110dc88dbb0b72&#34;&gt;common.h:&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;#ifndef VALUE1
+#error Unknown configuration
+#endif
+&amp;lt;repeat several times for other VALUEs&amp;gt;
+
+&amp;lt;some common code that uses all VALUEs&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Definitely much more clear.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;But we&amp;rsquo;re using this &amp;ldquo;common.h&amp;rdquo; somewhere else as well. It could break there, so we don&amp;rsquo;t make this change now. Instead we&amp;rsquo;ll create a new ticket in our issue tracking system and make the change later.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Oops. There&amp;rsquo;s no automated test system. Which means we don&amp;rsquo;t have courage to change the code&amp;hellip;.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>about</title>
+      <link>https://aragaer.github.io/just-code/about/</link>
+      <pubDate>Thu, 03 Sep 2015 00:24:06 +0300</pubDate>
+      
+      <guid>https://aragaer.github.io/just-code/about/</guid>
+      <description>&lt;p&gt;This will one day become a small blog about programming. Main focus of it will be the code itself.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
