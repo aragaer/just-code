@@ -3,6 +3,6 @@ layoutdir: "layouts"
 publishdir: "public"
 indexes:
   category: "categories"
-baseurl: "http://aragaer.github.io/just-code/"
+baseurl: "http://aragaer.github.io/just-code"
 title: "Just Code"
 canonifyurls: true

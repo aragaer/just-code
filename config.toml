@@ -1,3 +1,4 @@
 baseurl = "https://aragaer.github.io/just-code/"
 languageCode = "en-us"
 title = "Just Code"
+canonifyurls = true
